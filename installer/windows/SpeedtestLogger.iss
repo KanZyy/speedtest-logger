@@ -11,7 +11,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\SpeedtestLogger
 DefaultGroupName=Speedtest Logger
 DisableProgramGroupPage=yes
-OutputDir=dist\installer
+OutputDir=..\..\dist\installer
 OutputBaseFilename=SpeedtestLoggerSetup
 Compression=lzma
 SolidCompression=yes
@@ -24,7 +24,7 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "dist\speedtest_logger.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\dist\speedtest_logger.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Speedtest Logger"; Filename: "{app}\{#MyAppExeName}"

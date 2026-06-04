@@ -1,16 +1,17 @@
 $ErrorActionPreference = "Stop"
 
 Write-Host "[1/4] Installiere Build-Abhaengigkeiten..."
-python -m pip install --upgrade pip
-python -m pip install -r requirements-build.txt
+py -m pip install --upgrade pip
+py -m pip install -r requirements-build.txt
 
 Write-Host "[2/4] Baue Windows-EXE mit PyInstaller..."
-python -m PyInstaller --noconfirm --clean --onefile --name speedtest_logger speedtest_logger.py
+py -m PyInstaller --noconfirm --clean --onefile --name speedtest_logger --collect-all speedtest speedtest_logger.py
 
 Write-Host "[3/4] Pruefe Inno Setup..."
 $innoPaths = @(
     "C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
-    "C:\Program Files\Inno Setup 6\ISCC.exe"
+    "C:\Program Files\Inno Setup 6\ISCC.exe",
+    "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe"
 )
 
 $iscc = $null

@@ -1,44 +1,33 @@
 # Speedtest Logger
 
-Dieses Projekt kann als portable Windows-EXE gebaut werden, ohne dass auf dem Zielsystem Python installiert sein muss.
+Fuehrt alle 10 Minuten einen Speedtest durch und schreibt die Ergebnisse (Ping, Download, Upload) in eine CSV-Logdatei.
 
-## Windows-EXE bauen (lokal auf Windows)
+## Verwendung
 
-Voraussetzungen:
-- Python 3.11+
-
-Befehle in PowerShell im Projektordner:
-
-```powershell
-./build_windows_exe.ps1
+```
+speedtest_logger.exe [--interval SEKUNDEN] [--log-file PFAD] [--once]
 ```
 
-Ergebnis:
-- EXE: `dist/speedtest_logger.exe`
+| Option | Standard | Beschreibung |
+|---|---|---|
+| `--interval` | 600 | Messintervall in Sekunden |
+| `--log-file` | `speedtest.log.csv` | Basispfad der Logdatei |
+| `--once` | – | Genau einen Test ausfuehren und beenden |
 
-Die EXE kann direkt an deinen Kollegen weitergegeben werden.
+Pro Sitzung wird automatisch eine neue Datei mit Start- und Endzeit im Namen angelegt, z. B. `speedtest.log_20260604-120000_bis_20260604-180000.csv`.
 
-## Windows-EXE bauen (GitHub Actions)
+## Installer bauen (Windows)
 
-Workflow:
-- `.github/workflows/windows-exe.yml`
+Voraussetzungen:
+- Python 3.11+ (inkl. `py`-Launcher)
+- [Inno Setup 6](https://jrsoftware.org/isdl.php)
 
-Start:
-1. Repository pushen.
-2. In GitHub unter Actions den Workflow `Build Windows EXE` starten.
-3. Option `publish_release` auf `true` lassen.
-4. Nach Abschluss unter Releases die neu erzeugte Version oeffnen.
-5. Datei `speedtest_logger.exe` herunterladen und weitergeben.
+```powershell
+./build_windows_installer.ps1
+```
 
-Alternative:
-- Falls du keine Release willst, kannst du weiterhin das Artefakt `speedtest_logger_exe` aus dem Workflow herunterladen.
+Ergebnis: `dist\installer\SpeedtestLoggerSetup.exe`
 
-## Optional: Installer bauen
+Der Installer bringt den Python-Interpreter mit — auf dem Zielsystem muss **nichts installiert** werden.
 
-Wenn du spaeter doch einen klassischen Setup-Installer willst:
-- Script: `build_windows_installer.ps1`
-- Workflow: `.github/workflows/windows-installer.yml`
 
-## Hinweis zur Laufzeit
-
-Die gebaute EXE bringt den Python-Interpreter mit. Auf dem Zielsystem ist keine separate Python-Installation notwendig.
